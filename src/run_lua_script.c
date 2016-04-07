@@ -14,15 +14,16 @@ void main()
     }
 
     int bRet = luaL_loadfile( luaStatePtr, "scripts/run_lua_script.lua" );
+
     if( bRet ) {
-        printf("load file error\n");
+        printf( "load file error\n" );
         return ;
     }
 
     bRet = lua_pcall( luaStatePtr, 0, 0, 0 );
 
     if( bRet ) {
-        printf("pcall error\n");
+        printf( "pcall error\n" );
         return ;
     }
 
@@ -33,11 +34,16 @@ void main()
 
     //load lua global table
     lua_getglobal( luaStatePtr, "tblInLua" );
+
+    lua_getfield( luaStatePtr, -1, "name" );
+    const char* userName = lua_tostring( luaStatePtr, -1 );
+    lua_pop( luaStatePtr, 1 );
+
     lua_getfield( luaStatePtr, -1, "id" );
-    int userId = lua_tonumber( luaStatePtr, -1 );
-    lua_getfield( luaStatePtr, -2, "name" );
-    //const char* userName = lua_tostring( luaStatePtr, -1 );
-    //printf( "Table In Lua Script is: {UserName: %s, ID: %d}\n", userName, userId);
+    int userId = lua_tonumber( luaStatePtr, -2 );
+    lua_pop( luaStatePtr, 1 );
+
+    printf( "Table In Lua Script is: {UserName: %s, ID: %d}\n", userName, userId );
 
     //load lua function
     lua_getglobal( luaStatePtr, "add" );
@@ -58,8 +64,7 @@ void main()
     }
 
     //=================== top ===================
-    //   4   int：      30
-    //   3   string：   warmwine
+    //   3   int：      30
     //   2   table:     tbl
     //   1   string:    Lua is so cool
     //=================== bottom ===================
