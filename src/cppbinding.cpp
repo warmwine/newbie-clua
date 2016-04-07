@@ -1,21 +1,13 @@
 #include "selene.h"
 
-struct Bar {
-    int x;
-    Bar(int x_) : x(x_) {}
-    int AddThis(int y) { return x + y; }
-};
-
-
-
 int main()
 {
     sel::State state;
-    state["Bar"].SetClass<Bar, int>("add_this", &Bar::AddThis);
-
-    lua_State *L = lua_open();
-    luaL_dofile(L, "scripts/cppbinding.lua");
-    lua_close(L);
-
+    state.Load( "scripts/cppbinding.lua" );
+    printf( "foo is %d\n", int( state["foo"] ) );
+    std::string bar3 = state["bar"][3];
+    printf( "bar3 is %s\n", bar3.c_str() );
+    std::string barkey = state["bar"]["key"];
+    printf( "barkey is %s\n", barkey.c_str() );
     return 0;
 }

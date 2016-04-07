@@ -35,3 +35,18 @@ add_executable(CppClassDemo ${LUA_HPP} ${LUA_C} ../../src/cpp_class_userdata.cpp
 project (CppBinding)
 LINK_LIBRARIES(m)
 add_executable(CppBinding ${LUA_HPP} ${LUA_C} ../../src/cppbinding.cpp)
+
+#CPPUseLuaOption
+project (CppUseLuaOption)
+LINK_LIBRARIES(m)
+add_executable(CppUseLuaOption ${LUA_HPP} ${LUA_C} ../../src/use_lua_as_option.cpp)
+
+#CppUseLuaMod
+project (CppUseLuaMod)
+LINK_LIBRARIES(m)
+add_executable(CppUseLuaMod ${LUA_HPP} ${LUA_C} ../../src/use_lua_as_mod.cpp)
+
+#CppUseLuaLogic
+project (CppUseLuaLogic)
+LINK_LIBRARIES(m)
+add_executable(CppUseLuaLogic ${LUA_HPP} ${LUA_C} ../../src/use_lua_as_logic.cpp)
